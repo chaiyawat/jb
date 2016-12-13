@@ -1,0 +1,11 @@
+<aspectj>
+<aspects>
+<aspect name="com.sut.jbman.Jbman_Roo_Jpa_Entity"/>
+<aspect name="com.sut.jbman.web.JbmanController_Roo_Controller"/>
+<aspect name="com.sut.jbman.Jbman_Roo_Configurable"/>
+<aspect name="com.sut.jbman.Jbman_Roo_ToString"/>
+<aspect name="com.sut.jbman.web.ApplicationConversionServiceFactoryBean_Roo_ConversionService"/>
+<aspect name="com.sut.jbman.Jbman_Roo_Jpa_ActiveRecord"/>
+</aspects>
+</aspectj>
+
