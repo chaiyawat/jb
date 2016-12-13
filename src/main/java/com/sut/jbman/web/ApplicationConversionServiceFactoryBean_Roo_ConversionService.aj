@@ -4,6 +4,8 @@
 package com.sut.jbman.web;
 
 import com.sut.jbman.Jbman;
+import com.sut.jbman.domain.Student;
+import com.sut.jbman.domain.Teacher;
 import com.sut.jbman.web.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
@@ -37,10 +39,64 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
+    public Converter<Student, String> ApplicationConversionServiceFactoryBean.getStudentToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<com.sut.jbman.domain.Student, java.lang.String>() {
+            public String convert(Student student) {
+                return "(no displayable fields)";
+            }
+        };
+    }
+    
+    public Converter<Long, Student> ApplicationConversionServiceFactoryBean.getIdToStudentConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.sut.jbman.domain.Student>() {
+            public com.sut.jbman.domain.Student convert(java.lang.Long id) {
+                return Student.findStudent(id);
+            }
+        };
+    }
+    
+    public Converter<String, Student> ApplicationConversionServiceFactoryBean.getStringToStudentConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, com.sut.jbman.domain.Student>() {
+            public com.sut.jbman.domain.Student convert(String id) {
+                return getObject().convert(getObject().convert(id, Long.class), Student.class);
+            }
+        };
+    }
+    
+    public Converter<Teacher, String> ApplicationConversionServiceFactoryBean.getTeacherToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<com.sut.jbman.domain.Teacher, java.lang.String>() {
+            public String convert(Teacher teacher) {
+                return "(no displayable fields)";
+            }
+        };
+    }
+    
+    public Converter<Long, Teacher> ApplicationConversionServiceFactoryBean.getIdToTeacherConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.sut.jbman.domain.Teacher>() {
+            public com.sut.jbman.domain.Teacher convert(java.lang.Long id) {
+                return Teacher.findTeacher(id);
+            }
+        };
+    }
+    
+    public Converter<String, Teacher> ApplicationConversionServiceFactoryBean.getStringToTeacherConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, com.sut.jbman.domain.Teacher>() {
+            public com.sut.jbman.domain.Teacher convert(String id) {
+                return getObject().convert(getObject().convert(id, Long.class), Teacher.class);
+            }
+        };
+    }
+    
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
         registry.addConverter(getJbmanToStringConverter());
         registry.addConverter(getIdToJbmanConverter());
         registry.addConverter(getStringToJbmanConverter());
+        registry.addConverter(getStudentToStringConverter());
+        registry.addConverter(getIdToStudentConverter());
+        registry.addConverter(getStringToStudentConverter());
+        registry.addConverter(getTeacherToStringConverter());
+        registry.addConverter(getIdToTeacherConverter());
+        registry.addConverter(getStringToTeacherConverter());
     }
     
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {
